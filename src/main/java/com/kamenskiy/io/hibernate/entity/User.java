@@ -15,6 +15,8 @@ import lombok.NoArgsConstructor;
 @Table(name = "users", schema = "public")
 public class User {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
     private String username;
     @Embedded
     private PersonalInfo personalInfo;
