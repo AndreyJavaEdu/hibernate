@@ -14,9 +14,9 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "users", schema = "public")
 public class User {
-    @Id
+
     private String username;
-    @Embedded
+    @EmbeddedId
     private PersonalInfo personalInfo;
 
     @Enumerated(EnumType.STRING)
