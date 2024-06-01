@@ -1,15 +1,12 @@
 package com.kamenskiy.io.hibernate.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.kamenskiy.io.hibernate.converter.BirthdayConverter;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -22,7 +19,9 @@ public class User {
     private String username;
     private String firstname;
     private String lastname;
+    @Convert(converter = BirthdayConverter.class)
     @Column(name = "birth_date")
-    private LocalDate birthDate;
-    private Integer age;
+    private Birthday birthday;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 }
