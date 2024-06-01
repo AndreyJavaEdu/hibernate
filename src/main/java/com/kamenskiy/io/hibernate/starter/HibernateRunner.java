@@ -1,6 +1,7 @@
 package com.kamenskiy.io.hibernate.starter;
 
 import com.kamenskiy.io.hibernate.entity.Birthday;
+import com.kamenskiy.io.hibernate.entity.PersonalInfo;
 import com.kamenskiy.io.hibernate.entity.Role;
 import com.kamenskiy.io.hibernate.entity.User;
 import com.kamenskiy.io.hibernate.util.HibernateUtil;
@@ -12,25 +13,25 @@ public class HibernateRunner {
     public static void main(String[] args) {
         //TRANSIENT
         var user = User.builder()
-                .username("kamenskiy2@gmail.com")
-                .firstname("Andrey")
-                .lastname("Kamenskiy")
-                .birthday(new Birthday(LocalDate.of(1990, 2, 12)))
+                .username("kamenskiy212@gmail.com")
+                .personalInfo(PersonalInfo.builder()
+                        .firstname("Alla")
+                        .lastname("Kamenskiy")
+                        .birthday(new Birthday(LocalDate.of(1990, 2, 12)))
+                        .build())
+
                 .role(Role.USER)
                 .build();
         log.info("User object in transient state: {}", user);
 
         //TRANSIENT
-        try (var sesssionFactory = HibernateUtil.buildSessionFactory();) {
-            try (var session1 = sesssionFactory.openSession()) {
+        try (var sessionFactory = HibernateUtil.buildSessionFactory();) {
+            try (var session1 = sessionFactory.openSession()) {
 
                 session1.beginTransaction();
                 //user PERSISTENT к сессии 1
                 session1.saveOrUpdate(user);
-                user.setFirstname("Olga");
-                log.warn("User firstname was changed: {}", user);
-                System.out.println(session1.isDirty());
-                log.debug("User: {}, session: {}", user, session1);
+
                 session1.getTransaction().commit();
             }
         }catch (Exception e) {
