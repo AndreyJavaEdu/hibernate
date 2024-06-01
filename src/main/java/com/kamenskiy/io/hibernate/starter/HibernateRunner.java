@@ -13,7 +13,7 @@ public class HibernateRunner {
     public static void main(String[] args) {
         //TRANSIENT
         var user = User.builder()
-                .username("kamenskiy@gmail.com")
+                .username("kamenskiy12@gmail.com")
                 .personalInfo(PersonalInfo.builder()
                         .firstname("Alla")
                         .lastname("Kamenskiy")
