@@ -20,14 +20,23 @@ public class HibernateRunner {
              var session = sesssionFactory.openSession();) {
 
             session.beginTransaction();
-
-            session.persist(User.builder()
+            var user = User.builder()
                     .username("kamenskiy2@gmail.com")
                     .firstname("Andrey")
                     .lastname("Kamenskiy")
                     .birthday(new Birthday(LocalDate.of(1990, 2, 12)))
                     .role(Role.USER)
-                    .build());
+                    .build();
+//            session.persist(user);
+//            session.update(user);
+//            session.saveOrUpdate(user);
+//            session.delete(user);
+            User user1 = session.get(User.class, "kamenskiy2@gmail.com");
+            user1.setFirstname("Ivan");
+//            session.evict(user1);
+
+            System.out.println(user1);
+
             session.getTransaction().commit();
         }
     }
