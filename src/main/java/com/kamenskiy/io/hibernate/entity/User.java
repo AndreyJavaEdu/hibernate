@@ -14,9 +14,11 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "users", schema = "public")
 public class User {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
     private String username;
-    @EmbeddedId
+    @Embedded
     private PersonalInfo personalInfo;
 
     @Enumerated(EnumType.STRING)
