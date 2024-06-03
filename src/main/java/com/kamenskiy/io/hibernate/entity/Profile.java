@@ -13,11 +13,10 @@ import lombok.NoArgsConstructor;
 @Entity
 public class Profile {
     @Id
-    @Column(name = "user_id")
     private Long id;
 
     @OneToOne
-    @PrimaryKeyJoinColumn
+    @JoinColumn(name = "user_id")
     private User user;
 
     private String street;
@@ -26,6 +25,5 @@ public class Profile {
     public void setUser (User user) {
         this.user = user;
         user.setProfile(this);
-        id = user.getId();
     }
 }
