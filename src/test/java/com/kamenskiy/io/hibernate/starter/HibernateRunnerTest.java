@@ -24,7 +24,7 @@ class HibernateRunnerTest {
         @Cleanup var session = sessionFactory.openSession();
         session.beginTransaction();
         var user = User.builder()
-                .username("kamenskiy200@gmail.com")
+                .username("kamenskiy400@gmail.com")
                 .build();
         var profile = Profile.builder()
                 .id(10L)
