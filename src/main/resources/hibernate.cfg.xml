@@ -14,6 +14,8 @@
     <mapping class="com.kamenskiy.io.hibernate.entity.User"/>
     <mapping class="com.kamenskiy.io.hibernate.entity.Company"/>
     <mapping class="com.kamenskiy.io.hibernate.entity.Profile"/>
+    <mapping class="com.kamenskiy.io.hibernate.entity.Chat"/>
+    <mapping class="com.kamenskiy.io.hibernate.entity.UserChat"/>
 
 
     <!-- DB schema will be updated if needed -->

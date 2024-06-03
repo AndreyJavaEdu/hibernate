@@ -11,12 +11,63 @@ import java.lang.reflect.Field;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 class HibernateRunnerTest {
+
+    @Test
+    public void checkManyToMany3() {
+        @Cleanup var sessionFactory = HibernateUtil.buildSessionFactory();
+        @Cleanup var session = sessionFactory.openSession();
+        session.beginTransaction();
+        Chat chat = session.get(Chat.class, 1L);
+        var userChat = session.get(UserChat.class, 1L);
+        User user = User.builder()
+                .username("kjhjkhkhah")
+                .build();
+//        session.save(user);
+        userChat.setUser(user);
+        session.save(userChat);
+        session.getTransaction().commit();
+    }
+
+
+    @Test
+    public void checkManyToMany2() {
+        @Cleanup var sessionFactory = HibernateUtil.buildSessionFactory();
+        @Cleanup var session = sessionFactory.openSession();
+        session.beginTransaction();
+        Chat chat = session.get(Chat.class, 1L);
+        User user = session.get(User.class, 12L);
+        var userChat = UserChat.builder()
+                .createdBy("Andrey")
+                .createdAt(Instant.now())
+                .build();
+        userChat.setChat(chat);
+        userChat.setUser(user);
+        session.save(userChat);
+        session.getTransaction().commit();
+    }
+
+    @Test
+    public void checkManyToMany() {
+//        @Cleanup var sessionFactory = HibernateUtil.buildSessionFactory();
+//        @Cleanup var session = sessionFactory.openSession();
+//        session.beginTransaction();
+//        Chat chat = Chat.builder()
+//                .name("javaGuru")
+//                .build();
+//        User user = session.get(User.class, 12L);
+//        user.addChat(chat);
+//        session.save(chat);
+////        session.saveOrUpdate(user);
+//        session.getTransaction().commit();
+    }
 
     @Test
     public void checkOneToOne() {
