@@ -7,7 +7,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@ToString(exclude = "company")
+@ToString(exclude = {"company", "profile"})
 @EqualsAndHashCode(of = "username")
 @Entity
 @Table(name = "users", schema = "public")
@@ -15,7 +15,11 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-@Column(unique = true, nullable = false)
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Profile profile;
+
+    @Column(unique = true, nullable = false)
     private String username;
     @Embedded
     private PersonalInfo personalInfo;
@@ -23,12 +27,7 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne( fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id")
     private Company company;
-
-    protected boolean canEqual(final Object other) {
-        return other instanceof User;
-    }
-
 }
