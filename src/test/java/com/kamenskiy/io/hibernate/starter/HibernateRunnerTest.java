@@ -1,8 +1,10 @@
 package com.kamenskiy.io.hibernate.starter;
 
-import com.kamenskiy.io.hibernate.entity.User;
+import com.kamenskiy.io.hibernate.entity.*;
+import com.kamenskiy.io.hibernate.util.HibernateUtil;
 import jakarta.persistence.Column;
 import jakarta.persistence.Table;
+import lombok.Cleanup;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Field;
@@ -15,6 +17,50 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 class HibernateRunnerTest {
+    @Test
+    public void checkOrchanRemoval(){
+        @Cleanup var sessionFactory = HibernateUtil.buildSessionFactory();
+        @Cleanup var session = sessionFactory.openSession();
+        session.beginTransaction();
+        var company = session.get(Company.class, 1);
+        company.getUsers().removeIf(user -> user.getId().equals(9L));
+
+        session.getTransaction().commit();
+    }
+
+    @Test
+    public void addNewUserAndCompany(){
+        @Cleanup var sessionFactory = HibernateUtil.buildSessionFactory();
+        @Cleanup var session = sessionFactory.openSession();
+        session.beginTransaction();
+        var company = Company.builder()
+                .name("Apple")
+                .build();
+
+        //TRANSIENT
+        var user = User.builder()
+                .username("kamenskiy100@gmail.com")
+                .build();
+
+        company.addUser(user);
+        session.save(company);
+
+        session.getTransaction().commit();
+    }
+
+    @Test
+    public void checkOneToMany(){
+        @Cleanup var sessionFactory = HibernateUtil.buildSessionFactory();
+        @Cleanup var session = sessionFactory.openSession();
+
+        session.beginTransaction();
+
+        var company = session.get(Company.class, 1);
+        System.out.println(company.getUsers());
+
+        session.getTransaction().commit();
+    }
+
     @Test
     public void testHibernateApi() {
       /*  var user = User.builder()

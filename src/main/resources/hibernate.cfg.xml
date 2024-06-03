@@ -12,6 +12,8 @@
     <property name="format_sql">true</property>
     <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
     <mapping class="com.kamenskiy.io.hibernate.entity.User"/>
+    <mapping class="com.kamenskiy.io.hibernate.entity.Company"/>
+
 
     <!-- DB schema will be updated if needed -->
     <!-- <property name="hibernate.hbm2ddl.auto">update</property> -->
