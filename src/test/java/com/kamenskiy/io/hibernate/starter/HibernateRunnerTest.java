@@ -17,8 +17,28 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 class HibernateRunnerTest {
+
     @Test
-    public void checkOrchanRemoval(){
+    public void checkOneToOne() {
+        @Cleanup var sessionFactory = HibernateUtil.buildSessionFactory();
+        @Cleanup var session = sessionFactory.openSession();
+        session.beginTransaction();
+        var user = User.builder()
+                .username("kamenskiy200@gmail.com")
+                .build();
+        var profile = Profile.builder()
+                .id(10L)
+                .street("Gorbatogo 10")
+                .language("RU")
+                .build();
+        session.save(user);
+        profile.setUser(user);
+        session.save(profile);
+        session.getTransaction().commit();
+    }
+
+    @Test
+    public void checkOrchanRemoval() {
         @Cleanup var sessionFactory = HibernateUtil.buildSessionFactory();
         @Cleanup var session = sessionFactory.openSession();
         session.beginTransaction();
@@ -29,7 +49,7 @@ class HibernateRunnerTest {
     }
 
     @Test
-    public void addNewUserAndCompany(){
+    public void addNewUserAndCompany() {
         @Cleanup var sessionFactory = HibernateUtil.buildSessionFactory();
         @Cleanup var session = sessionFactory.openSession();
         session.beginTransaction();
@@ -49,7 +69,7 @@ class HibernateRunnerTest {
     }
 
     @Test
-    public void checkOneToMany(){
+    public void checkOneToMany() {
         @Cleanup var sessionFactory = HibernateUtil.buildSessionFactory();
         @Cleanup var session = sessionFactory.openSession();
 
