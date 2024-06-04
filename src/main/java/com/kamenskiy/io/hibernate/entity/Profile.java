@@ -14,9 +14,10 @@ import lombok.NoArgsConstructor;
 public class Profile {
     @Id
     @Column(name = "user_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     private User user;
 
@@ -26,6 +27,5 @@ public class Profile {
     public void setUser (User user) {
         this.user = user;
         user.setProfile(this);
-        id = user.getId();
     }
 }
