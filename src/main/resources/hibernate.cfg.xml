@@ -16,6 +16,11 @@
     <mapping class="com.kamenskiy.io.hibernate.entity.Profile"/>
     <mapping class="com.kamenskiy.io.hibernate.entity.Chat"/>
     <mapping class="com.kamenskiy.io.hibernate.entity.UserChat"/>
+    <mapping class="com.kamenskiy.io.hibernate.entity.Student"/>
+    <mapping class="com.kamenskiy.io.hibernate.entity.Course"/>
+    <mapping class="com.kamenskiy.io.hibernate.entity.StudentProfile"/>
+    <mapping class="com.kamenskiy.io.hibernate.entity.Trainer"/>
+    <mapping class="com.kamenskiy.io.hibernate.entity.TrainerCourse"/>
 
 
     <!-- DB schema will be updated if needed -->
