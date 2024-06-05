@@ -19,15 +19,15 @@ class HibernateRunnerTest {
                 .build();
         session.save(company);
         var programmer = Programmer.builder()
-                        .username("ivan123@yandex.ru")
+                .username("ivan123@yandex.ru")
                 .language(Language.JAVA)
-                                .build();
+                .build();
         session.save(programmer);
 
         var manager = Manager.builder()
-                        .username("alex@yandex.ru")
-                                .project("Java Enterprise")
-                                        .build();
+                .username("alex@yandex.ru")
+                .project("Java Enterprise")
+                .build();
         session.save(manager);
 
         session.flush();
@@ -36,6 +36,7 @@ class HibernateRunnerTest {
         var manager1 = session.get(User.class, 2L);
         session.getTransaction().commit();
     }
+
     @Test
     public void checkH2() {
         @Cleanup var sessionFactory = HibernateUtil.buildSessionFactory();
@@ -47,6 +48,7 @@ class HibernateRunnerTest {
         session.save(company);
         session.getTransaction().commit();
     }
+
     @Test
     public void checkManyToMany3() {
         @Cleanup var sessionFactory = HibernateUtil.buildSessionFactory();
