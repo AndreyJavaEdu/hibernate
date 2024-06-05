@@ -17,6 +17,7 @@ class HibernateRunnerTest {
         var company = Company.builder()
                 .name("Yandex")
                 .build();
+        /*
         session.save(company);
         var programmer = Programmer.builder()
                 .username("ivan123@yandex.ru")
@@ -28,12 +29,14 @@ class HibernateRunnerTest {
                 .username("alex@yandex.ru")
                 .project("Java Enterprise")
                 .build();
+
         session.save(manager);
 
         session.flush();
         session.clear();
         var programmer1 = session.get(Programmer.class, 1L);
         var manager1 = session.get(User.class, 2L);
+         */
         session.getTransaction().commit();
     }
 
@@ -56,12 +59,15 @@ class HibernateRunnerTest {
         session.beginTransaction();
         Chat chat = session.get(Chat.class, 1L);
         var userChat = session.get(UserChat.class, 1L);
-//        User user = User.builder()
-//                .username("kjhjkhkhah")
-//                .build();
-//        session.save(user);
-//        userChat.setUser(user);
+        /*
+        User user = User.builder()
+                .username("kjhjkhkhah")
+                .build();
+        session.save(user);
+        userChat.setUser(user);
         session.save(userChat);
+
+         */
         session.getTransaction().commit();
     }
 
@@ -73,29 +79,32 @@ class HibernateRunnerTest {
         session.beginTransaction();
         Chat chat = session.get(Chat.class, 1L);
         User user = session.get(User.class, 12L);
-//        var userChat = UserChat.builder()
-//                .createdBy("Andrey")
-//                .createdAt(Instant.now())
-//                .build();
-//        userChat.setChat(chat);
-//        userChat.setUser(user);
-//        session.save(userChat);
+
+/*        var userChat = UserChat.builder()
+                .createdBy("Andrey")
+                .createdAt(Instant.now())
+                .build();
+        userChat.setChat(chat);
+        userChat.setUser(user);
+        session.save(userChat);
         session.getTransaction().commit();
+
+ */
     }
 
     @Test
     public void checkManyToMany() {
-//        @Cleanup var sessionFactory = HibernateUtil.buildSessionFactory();
-//        @Cleanup var session = sessionFactory.openSession();
-//        session.beginTransaction();
-//        Chat chat = Chat.builder()
-//                .name("javaGuru")
-//                .build();
-//        User user = session.get(User.class, 12L);
+        @Cleanup var sessionFactory = HibernateUtil.buildSessionFactory();
+        @Cleanup var session = sessionFactory.openSession();
+        session.beginTransaction();
+        Chat chat = Chat.builder()
+                .name("javaGuru")
+                .build();
+        User user = session.get(User.class, 12L);
 //        user.addChat(chat);
-//        session.save(chat);
-////        session.saveOrUpdate(user);
-//        session.getTransaction().commit();
+        session.save(chat);
+        session.saveOrUpdate(user);
+        session.getTransaction().commit();
     }
 
     @Test
