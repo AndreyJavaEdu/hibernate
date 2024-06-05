@@ -10,6 +10,33 @@ import java.time.Instant;
 
 class HibernateRunnerTest {
     @Test
+    public void checkInheritance() {
+        @Cleanup var sessionFactory = HibernateUtil.buildSessionFactory();
+        @Cleanup var session = sessionFactory.openSession();
+        session.beginTransaction();
+        var company = Company.builder()
+                .name("Yandex")
+                .build();
+        session.save(company);
+        var programmer = Programmer.builder()
+                        .username("ivan123@yandex.ru")
+                .language(Language.JAVA)
+                                .build();
+        session.save(programmer);
+
+        var manager = Manager.builder()
+                        .username("alex@yandex.ru")
+                                .project("Java Enterprise")
+                                        .build();
+        session.save(manager);
+
+        session.flush();
+        session.clear();
+        var programmer1 = session.get(Programmer.class, 1L);
+        var manager1 = session.get(User.class, 2L);
+        session.getTransaction().commit();
+    }
+    @Test
     public void checkH2() {
         @Cleanup var sessionFactory = HibernateUtil.buildSessionFactory();
         @Cleanup var session = sessionFactory.openSession();
@@ -27,11 +54,11 @@ class HibernateRunnerTest {
         session.beginTransaction();
         Chat chat = session.get(Chat.class, 1L);
         var userChat = session.get(UserChat.class, 1L);
-        User user = User.builder()
-                .username("kjhjkhkhah")
-                .build();
+//        User user = User.builder()
+//                .username("kjhjkhkhah")
+//                .build();
 //        session.save(user);
-        userChat.setUser(user);
+//        userChat.setUser(user);
         session.save(userChat);
         session.getTransaction().commit();
     }
@@ -74,16 +101,16 @@ class HibernateRunnerTest {
         @Cleanup var sessionFactory = HibernateUtil.buildSessionFactory();
         @Cleanup var session = sessionFactory.openSession();
         session.beginTransaction();
-        var user = User.builder()
-                .username("kamenskiy200@gmail.com")
-                .build();
+//        var user = User.builder()
+//                .username("kamenskiy200@gmail.com")
+//                .build();
         var profile = Profile.builder()
                 .id(10L)
                 .street("Gorbatogo 10")
                 .language("RU")
                 .build();
-        session.save(user);
-        profile.setUser(user);
+//        session.save(user);
+//        profile.setUser(user);
         session.save(profile);
         session.getTransaction().commit();
     }
@@ -109,11 +136,11 @@ class HibernateRunnerTest {
                 .build();
 
         //TRANSIENT
-        var user = User.builder()
-                .username("kamenskiy100@gmail.com")
-                .build();
+//        var user = User.builder()
+//                .username("kamenskiy100@gmail.com")
+//                .build();
 
-        company.addUser(user);
+//        company.addUser(user);
         session.save(company);
 
         session.getTransaction().commit();
