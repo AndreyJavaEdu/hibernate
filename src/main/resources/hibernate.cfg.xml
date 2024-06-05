@@ -21,6 +21,8 @@
     <mapping class="com.kamenskiy.io.hibernate.entity.StudentProfile"/>
     <mapping class="com.kamenskiy.io.hibernate.entity.Trainer"/>
     <mapping class="com.kamenskiy.io.hibernate.entity.TrainerCourse"/>
+    <mapping class="com.kamenskiy.io.hibernate.entity.Programmer"/>
+    <mapping class="com.kamenskiy.io.hibernate.entity.Manager"/>
 
 
     <!-- DB schema will be updated if needed -->

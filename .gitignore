@@ -12,3 +12,4 @@ target/
 *.iml
 *.ipr
 .idea
+/hibernate-starter.log
