@@ -2,24 +2,24 @@ package com.kamenskiy.io.hibernate.starter;
 
 import com.kamenskiy.io.hibernate.entity.*;
 import com.kamenskiy.io.hibernate.util.HibernateUtil;
-import jakarta.persistence.Column;
-import jakarta.persistence.Table;
 import lombok.Cleanup;
 import org.junit.jupiter.api.Test;
 
-import java.lang.reflect.Field;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.time.Instant;
-import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.Optional;
-import java.util.stream.Collectors;
+
 
 class HibernateRunnerTest {
-
+    @Test
+    public void checkH2() {
+        @Cleanup var sessionFactory = HibernateUtil.buildSessionFactory();
+        @Cleanup var session = sessionFactory.openSession();
+        session.beginTransaction();
+        var company = Company.builder()
+                .name("Google")
+                .build();
+        session.save(company);
+        session.getTransaction().commit();
+    }
     @Test
     public void checkManyToMany3() {
         @Cleanup var sessionFactory = HibernateUtil.buildSessionFactory();
