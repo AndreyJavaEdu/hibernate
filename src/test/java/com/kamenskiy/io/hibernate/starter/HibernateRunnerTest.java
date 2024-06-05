@@ -44,13 +44,13 @@ class HibernateRunnerTest {
         session.beginTransaction();
         Chat chat = session.get(Chat.class, 1L);
         User user = session.get(User.class, 12L);
-        var userChat = UserChat.builder()
-                .createdBy("Andrey")
-                .createdAt(Instant.now())
-                .build();
-        userChat.setChat(chat);
-        userChat.setUser(user);
-        session.save(userChat);
+//        var userChat = UserChat.builder()
+//                .createdBy("Andrey")
+//                .createdAt(Instant.now())
+//                .build();
+//        userChat.setChat(chat);
+//        userChat.setUser(user);
+//        session.save(userChat);
         session.getTransaction().commit();
     }
 
