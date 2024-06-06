@@ -1,14 +1,37 @@
 package com.kamenskiy.io.hibernate.starter;
 
-import com.kamenskiy.io.hibernate.entity.*;
+import com.kamenskiy.io.hibernate.entity.Chat;
+import com.kamenskiy.io.hibernate.entity.Company;
+import com.kamenskiy.io.hibernate.entity.Profile;
+import com.kamenskiy.io.hibernate.entity.User;
+import com.kamenskiy.io.hibernate.entity.UserChat;
 import com.kamenskiy.io.hibernate.util.HibernateUtil;
 import lombok.Cleanup;
 import org.junit.jupiter.api.Test;
 
 import java.time.Instant;
+import java.util.List;
 
 
 class HibernateRunnerTest {
+    @Test
+    public void checkHQL() {
+        @Cleanup var sessionFactory = HibernateUtil.buildSessionFactory();
+        @Cleanup var session = sessionFactory.openSession();
+        session.beginTransaction();
+        String name = "Pavel";
+
+        var users = session.createNamedQuery("findUserByNameAndCompany", User.class)
+                .setParameter("firstname", name)
+                .setParameter("companyName", "Yandex")
+                .list();
+
+        int i = session.createMutationQuery("update User u set u.role = 'ADMIN'").executeUpdate();
+        System.out.println(users);
+
+        session.getTransaction().commit();
+    }
+
     @Test
     public void checkInheritance() {
         @Cleanup var sessionFactory = HibernateUtil.buildSessionFactory();
@@ -46,7 +69,7 @@ class HibernateRunnerTest {
         @Cleanup var session = sessionFactory.openSession();
         session.beginTransaction();
         var company = Company.builder()
-                .name("Google")
+                .name("Yandex")
                 .build();
         session.save(company);
         session.getTransaction().commit();
@@ -112,16 +135,16 @@ class HibernateRunnerTest {
         @Cleanup var sessionFactory = HibernateUtil.buildSessionFactory();
         @Cleanup var session = sessionFactory.openSession();
         session.beginTransaction();
-//        var user = User.builder()
-//                .username("kamenskiy200@gmail.com")
-//                .build();
+        var user = User.builder()
+                .username("ivanov1@gmail.com")
+                .build();
         var profile = Profile.builder()
-                .id(10L)
-                .street("Gorbatogo 10")
+//                .id(10L)
+                .street("Gorbatogo 12")
                 .language("RU")
                 .build();
-//        session.save(user);
-//        profile.setUser(user);
+        session.save(user);
+        profile.setUser(user);
         session.save(profile);
         session.getTransaction().commit();
     }

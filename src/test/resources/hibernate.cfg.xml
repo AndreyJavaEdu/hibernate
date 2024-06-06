@@ -11,7 +11,7 @@
     <property name="show_sql">true</property>
     <property name="format_sql">true</property>
     <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
-    <property name="hibernate.hbm2ddl.auto">create</property>
+<!--    <property name="hibernate.hbm2ddl.auto">create</property>-->
 
     <mapping class="com.kamenskiy.io.hibernate.entity.User"/>
     <mapping class="com.kamenskiy.io.hibernate.entity.Company"/>
@@ -23,8 +23,8 @@
     <mapping class="com.kamenskiy.io.hibernate.entity.StudentProfile"/>
     <mapping class="com.kamenskiy.io.hibernate.entity.Trainer"/>
     <mapping class="com.kamenskiy.io.hibernate.entity.TrainerCourse"/>
-    <mapping class="com.kamenskiy.io.hibernate.entity.Programmer"/>
-    <mapping class="com.kamenskiy.io.hibernate.entity.Manager"/>
+<!--    <mapping class="com.kamenskiy.io.hibernate.entity.Programmer"/>-->
+<!--    <mapping class="com.kamenskiy.io.hibernate.entity.Manager"/>-->
 
 
     <!-- DB schema will be updated if needed -->

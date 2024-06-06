@@ -5,7 +5,12 @@ import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@NamedQuery(name = "findUserByNameAndCompany", query ="""
+                                        select u from User u
+                        left join u.company       
+                        where u.personalInfo.firstname = :firstname
+                        and u.company.name = :companyName
+                                        """ )
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -19,8 +24,8 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Profile profile;
+//    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private Profile profile;
 
     @Column(unique = true, nullable = false)
     private String username;
